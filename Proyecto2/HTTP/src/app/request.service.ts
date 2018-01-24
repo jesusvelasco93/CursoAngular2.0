@@ -8,6 +8,7 @@ export class RequestService {
   constructor(private http: Http) { }
 
   getRequest(req: string) {
-    return this.http.get(req).map((response) => response.json())
+    return this.http.get(req).map((response) => response.json());
   }
+
 }
