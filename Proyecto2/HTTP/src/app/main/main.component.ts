@@ -9,7 +9,8 @@ import { RequestService } from '../request.service';
 })
 export class MainComponent implements OnInit {
 
-  result: any;
+  result: any = null;
+  mode = false;
 
   constructor(private service: RequestService) { }
 
@@ -17,11 +18,13 @@ export class MainComponent implements OnInit {
   }
 
   searchBeers() {
-    (this.service.getRequest('https://api.punkapi.com/v2/beers')).subscribe(
+    (this.service.getRequest('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo')).subscribe(
 					(result) => this.result = result,
 					(err) => console.error(err),
 					() => console.log('Authentication Complete')
 					);
   }
-
+  changeMode() {
+    this.mode ? this.mode = false : this.mode = true;
+  }
 }
