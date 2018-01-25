@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { RequestService } from './request.service';
 
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +20,9 @@ import { RequestService } from './request.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    // BrowserAnimationsModule,
+    // NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,19 @@
+<div class="jumbotron">
+  <h2>Template Driven Form</h2>
+  <form #form="ngForm" (ngSubmit)="submitForm(form.value)">
+    <div class="form-group">
+      <label>First Name:</label>
+      <input type="text" class="form-control" placeholder="John" #firstName="ngModel" name="firstName" [(ngModel)]="user.firstName"
+        required>
+      <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">First name is required</div>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" placeholder="Doe" #lastName="ngModel" name="lastName" [(ngModel)]="user.lastName"
+        required>
+      <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">Last name is required</div>
+    </div>
+    <!-- CONTINUA ... -->
+    <button type="submit" [disabled]="form.invalid" class="btn btn-default">Submit</button>
+  </form>
+</div>

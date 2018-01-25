@@ -9,22 +9,36 @@ import { RequestService } from '../request.service';
 })
 export class MainComponent implements OnInit {
 
-  result: any = null;
-  mode = false;
+  result: any = [];
+  urlNext: string = 'https://swapi.co/api/people?format=json';
+  httpRequestInCurse = false;
 
-  constructor(private service: RequestService) { }
+  constructor(private service: RequestService) { 
+    // window.onscroll = () => {
+    //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    //     // you're at the bottom of the page
+    //     if (!this.httpRequestInCurse){
+    //       this.httpRequestInCurse = true;
+    //       this.searchBeers();
+    //       // console.log('Scroll in the bottom');
+    //     }
+    //   }
+    // }
+  }
 
   ngOnInit() {
   }
 
   searchBeers() {
-    (this.service.getRequest('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo')).subscribe(
-					(result) => this.result = result,
+    (this.service.getRequest(this.urlNext)).subscribe(
+      (result) => {
+                    this.httpRequestInCurse = false;
+                    this.result = this.result.concat(result.results);
+                    this.urlNext = result.next;
+                    console.log(result.results, this.result);
+                  },
 					(err) => console.error(err),
 					() => console.log('Authentication Complete')
 					);
-  }
-  changeMode() {
-    this.mode ? this.mode = false : this.mode = true;
   }
 }

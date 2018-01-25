@@ -1,16 +1,8 @@
 <p>
     main works!
 </p>
-<button (click)="searchBeers()">Cargar</button>
-<button (click)="changeMode()">Cambiar modo</button>
-<div *ngIf="result">
-    <p>Date: {{result.date}}</p>
-    <p>Explanation: {{result.explanation}}</p>
-    <p>Title: {{result.title}}</p>
-    <div *ngIf="!mode">
-        <img [src]="result.url"/>
-    </div>
-    <div *ngIf="mode">
-        <img [src]="result.hdurl"/>
-    </div>
+
+<div *ngFor="let item of result">
+    <p>{{item.name}}</p>
 </div>
+<button (click)="searchBeers()">Cargar más</button>
