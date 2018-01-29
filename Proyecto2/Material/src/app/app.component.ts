@@ -1,11 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RequestService } from './request.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [RequestService]
 })
-export class AppComponent {
-  title = 'app';
-  messages = [{from: 'from', subject: 'my subject'},{from: 'from', subject: 'my subject'}];
+export class AppComponent implements OnInit {
+
+  imgUrl = '';
+  constructor(private service: RequestService) {}
+
+  ngOnInit() {
+  }
+
+  searchBeers() {
+    // const url = this.myDatepicker;
+    (this.service.getRequest('this.urlNext')).subscribe(
+      (result) => {
+
+        console.log(result);
+      },
+      (err) => console.error(err),
+      () => console.log('Authentication Complete')
+    );
+  }
 }
