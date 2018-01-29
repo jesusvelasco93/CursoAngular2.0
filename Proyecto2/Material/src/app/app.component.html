@@ -1,6 +1,10 @@
 <!-- <h1>Foto del día: {{myDatepicker}}</h1> -->
 <mat-form-field>
-  <input matInput [matDatepicker]="myDatepicker">
-  <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-  <mat-datepicker #myDatepicker></mat-datepicker>
+  <input matInput [matDatepicker]="date" (dateChange)="loadImage('change', $event)">
+  <mat-datepicker-toggle matSuffix [for]="date" ></mat-datepicker-toggle>
+  <mat-datepicker #date></mat-datepicker>
 </mat-form-field>
+<!-- <button (click)="loadImage()">Load Image</button> -->
+<div *ngIf="urlImg">
+  <img [src]="urlImg"/>
+</div>
