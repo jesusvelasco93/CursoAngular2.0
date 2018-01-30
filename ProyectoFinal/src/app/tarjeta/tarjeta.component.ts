@@ -13,6 +13,7 @@ export class TarjetaComponent implements OnInit {
   type: string = '';
   difficulty: string = '';
   question: string = '';
+  answers: Array<string> = [];
   correct_answer: string = '';
   incorrect_answers: Array<string> = [];
 
@@ -21,8 +22,19 @@ export class TarjetaComponent implements OnInit {
   ngOnInit() { }
 
   searchTarjets() {
-    (this.service.getRequest('')).subscribe(
-      (result) => console.log(result),
+    (this.service.getRequest('https://opentdb.com/api.php?amount=1')).subscribe(
+      (result) => {
+        console.log(result);
+        this.category = result.category;
+        this.type = result.type;
+        this.difficulty = result.difficulty;
+        this.question = result.question;
+        this.correct_answer = result.correct_answer;
+        this.incorrect_answers = result.incorrect_answers;
+
+        this.answers = this.incorrect_answers;
+        this.answers.push(this.correct_answer);
+      },
       (err) => console.error(err),
       () => console.log('Request OK')
     );
