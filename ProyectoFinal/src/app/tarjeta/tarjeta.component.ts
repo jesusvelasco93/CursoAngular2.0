@@ -1,24 +1,15 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { RequestService } from '../request.service';
+import { Component, OnInit, OnChanges, Output, Input, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-tarjeta',
   templateUrl: './tarjeta.component.html',
   styleUrls: ['./tarjeta.component.css'],
-  providers: [RequestService],
 })
-export class TarjetaComponent implements OnInit {
+export class TarjetaComponent implements OnInit, OnChanges {
+  @Input() data = null;
   @Output() tarjetaResuelta = new EventEmitter<any>();
-  // @Input('init') score = null;
+  @Output() siguienteTarjeta = new EventEmitter<any>();
 
-  juegoEmpezado = false;
-  juegoCargando = false;
-  juegoTerminado = false;
-
-  numberQuestions = 10;
-  questions: Array<any> = [];
-  numCurrentQuestion = -1;
-  
   optionSelected = null;
   solucionado = false;
 
@@ -30,62 +21,37 @@ export class TarjetaComponent implements OnInit {
   correct_answer: string = '';
   incorrect_answers: Array<string> = [];
 
-  constructor(private service: RequestService) { }
+  constructor() { }
 
   ngOnInit() {}
 
-  searchTarjets() {
-    console.log(this.numberQuestions);
-    (this.service.getRequest('https://opentdb.com/api.php?encode=url3986&amount=' + this.numberQuestions)).subscribe(
-      (result) => {
-        this.juegoCargando = false;
-        this.juegoEmpezado = true;
-        this.questions = result.results;
-        console.log(this.questions);
-        this.getNextTarget();
-      },
-      (err) => console.error(err),
-      () => console.log('Request OK')
-    );
-  }
-  getNextTarget() {
-    this.numCurrentQuestion++;
-    const currentQuestion = this.questions[this.numCurrentQuestion];
-    console.log('LOAD QUESTION', currentQuestion, this.numCurrentQuestion);
+  ngOnChanges() {
+    this.optionSelected = null;
+    this.solucionado = false;
 
-    this.category = decodeURIComponent(currentQuestion.category);
-    this.type = decodeURIComponent(currentQuestion.type);
-    this.difficulty = decodeURIComponent(currentQuestion.difficulty);
-    this.question = decodeURIComponent(currentQuestion.question);
-    this.correct_answer = decodeURIComponent(currentQuestion.correct_answer);
-    this.incorrect_answers = currentQuestion.incorrect_answers;
-
-    this.answers = [];
-    this.answers.push(this.correct_answer);
-    for (let i = 0; i < this.incorrect_answers.length; i++) {
-      this.answers.push(decodeURIComponent(this.incorrect_answers[i]));
-    }
+    this.category = this.data.category;
+    this.type = this.data.type;
+    this.difficulty = this.data.difficulty;
+    this.question = this.data.question;
+    this.answers = this.data.answers;
+    this.correct_answer = this.data.correct_answer;
+    this.incorrect_answers = this.data.incorrect_answers;
   }
+
   evaluar() {
     const correct = this.optionSelected === this.correct_answer;
     this.tarjetaResuelta.emit({ difficulty: this.difficulty, correct: correct });
     this.solucionado = true;
   }
   next() {
-    if (this.numCurrentQuestion < this.numberQuestions) {
-      this.optionSelected = null;
-      this.solucionado = false;
-      this.getNextTarget();
-    } else {
-      this.juegoTerminado = true;
-    }
+    this.siguienteTarjeta.emit({});
   }
-  empezar() {
-    this.juegoEmpezado = false;
-    this.juegoCargando = true;
-    this.searchTarjets();
-  }
-  reiniciar() {
-    this.empezar();
-  }
+  // empezar() {
+  //   this.juegoEmpezado = false;
+  //   this.juegoCargando = true;
+  //   this.searchTarjets();
+  // }
+  // reiniciar() {
+  //   this.empezar();
+  // }
 }

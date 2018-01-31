@@ -1,3 +1,14 @@
 <h1>Trivial</h1>
 <h3>Puntuación: {{score}}</h3>
-<app-tarjeta (tarjetaResuelta)="changeScore($event)"></app-tarjeta>
+
+<div *ngIf="!juegoEmpezado && !juegoTerminado">
+    <button *ngIf="!juegoCargando" type="button" (click)="empezar()">Empezar</button>
+    <h2 *ngIf="juegoCargando">Cargando...</h2>
+</div>
+<div *ngIf="!juegoEmpezado && juegoTerminado">
+    <button type="button" (click)="reiniciar">Reiniciar</button>
+</div>
+
+<div *ngIf="juegoEmpezado && !juegoTerminado">
+    <app-tarjeta [data]="tarjet" (tarjetaResuelta)="changeScore($event)" (siguienteTarjeta)="nextTarget($event)"></app-tarjeta>
+</div>
