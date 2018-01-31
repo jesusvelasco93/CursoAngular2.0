@@ -1,2 +1,3 @@
 <h1>Trivial</h1>
-<app-tarjeta></app-tarjeta>
+<h3>Puntuación: {{score}}</h3>
+<app-tarjeta (tarjetaResuelta)="changeScore($event)"></app-tarjeta>
