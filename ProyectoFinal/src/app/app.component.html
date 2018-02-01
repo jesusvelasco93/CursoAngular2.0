@@ -1,21 +1,21 @@
-<div class="row">
+<div class="row" style="font-style: italic; background:black; color:white;">
     <div class="col-sm-7">
         <h1>Trivial</h1>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-5 text-right">
         <h3>Puntuación: {{score}}</h3>
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-sm-12" *ngIf="!juegoEmpezado && !juegoTerminado">   
-        <button *ngIf="!juegoCargando" type="button" (click)="empezar()">Empezar</button>
-        <h2 *ngIf="juegoCargando">Cargando...</h2>
+<div class="row justify-content-center" style="margin-top:2rem">
+    <div class="col-sm-12 text-center" *ngIf="!juegoEmpezado && !juegoTerminado">   
+        <button *ngIf="!juegoCargando" type="button" class="btn btn-primary" (click)="empezar()">Empezar</button>
+        <h2 *ngIf="juegoCargando" style="font-style:italic;">Cargando...</h2>
     </div>
-    <div class="col-sm-12" *ngIf="!juegoEmpezado && juegoTerminado">
-        <button type="button" (click)="reiniciar">Reiniciar</button>
+    <div class="col-sm-12 text-center" *ngIf="!juegoEmpezado && juegoTerminado">
+        <button type="button" class="btn btn-primary" (click)="reiniciar">Reiniciar</button>
     </div>
     
-    <div class="col-sm-6" *ngIf="juegoEmpezado && !juegoTerminado">
+    <div class="col-sm-8" *ngIf="juegoEmpezado && !juegoTerminado">
         <app-tarjeta [data]="tarjet" (tarjetaResuelta)="changeScore($event)" (siguienteTarjeta)="nextTarget($event)"></app-tarjeta>
     </div>
 </div>
