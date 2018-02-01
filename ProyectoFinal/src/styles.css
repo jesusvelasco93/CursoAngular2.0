@@ -25,3 +25,12 @@ p.linkHeader {
 .correctAnswer{
     background-color: green;
 }
+.zoneConfig {
+    color:white;
+    background: #292b2c;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+hr {
+    background: white;
+}

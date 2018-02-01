@@ -15,20 +15,79 @@
             <a class="nav-link" href="/">Inicio</a>
         </div>
         <div class="nav navbar-nav">
-            <p class="nav-link linkHeader" [hidden]="!(juegoEmpezado && !juegoTerminado)"><span>Puntuación: </span>{{score}}</p>
+            <p class="nav-link linkHeader" [hidden]="!(juegoEmpezado && !juegoTerminado)">
+                <span>Puntuación: </span><span style="color:white">{{score}}</span>
+            </p>
         </div>
     </div>
 </nav>
 <div class="row justify-content-center" style="margin-top:2rem">
-    <div class="col-sm-12 text-center" [hidden]="!(!juegoEmpezado && !juegoTerminado)">   
-        <button [hidden]="juegoCargando" type="button" class="btn btn-warning" (click)="empezar()">Empezar</button>
+    <div class="col-sm-12 text-center" [hidden]="!(!juegoEmpezado && !juegoTerminado)">
+        <div [hidden]="juegoCargando">
+            <div class="row zoneConfig">
+                <div class="col-sm-12">
+                    <h2>Configura tu juego</h2>
+                </div>
+                <div class="col-sm-12">
+                    <hr/>
+                    <div class="form-group row">
+                        <label for="difficultyOption" class="col-2 col-form-label">Difficulty</label>
+                        <div class="col-10">
+                            <select class="form-control" id="difficultyOption" [(ngModel)]="service.difficultyUserSelection">
+                                <option value="">any</option>
+                                <option>easy</option>
+                                <option>medium</option>
+                                <option>hard</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group row">
+                        <label for="typeQuestions" class="col-2 col-form-label">Type</label>
+                        <div class="col-10">
+                            <select class="form-control" id="typeQuestions" [(ngModel)]="service.typeQuestionsUserSelection">
+                                <option value="">any</option>
+                                <option value="boolean">true/false</option>
+                                <option value="multiple">multiple</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group row">
+                        <label for="typeQuestions" class="col-2 col-form-label">Category</label>
+                        <div class="col-10">
+                            <select class="form-control" id="typeQuestions" [(ngModel)]="service.categoryQuestionsUserSelection">
+                                <option value="">any</option>
+                                <option *ngFor="let category of service.typeCategories" value="{{category.id}}">{{category.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="form-group row">
+                        <label for="numQuestionUserConfiguration" class="col-2 col-form-label">Number of questions</label>
+                        <div class="col-10">
+                            <input class="form-control" type="number" id="numQuestionUserConfiguration" [(ngModel)]="service.numberOfQuestionsSelection" min="1" max="100">
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-warning" (click)="empezar()">Empezar</button>
+                </div>
+            </div>
+            <!-- difficultyUserSelection -->
+        </div>
         <!-- <h2 [hidden]="!juegoCargando" style="font-style:italic;">Cargando...</h2> -->
         <div [hidden]="!juegoCargando" class="progress">
             <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    <div class="col-sm-12 text-center" [hidden]="!(!juegoEmpezado && juegoTerminado)">
-        <button type="button" class="btn btn-warning" (click)="reiniciar">Reiniciar</button>
+    <div class="col-sm-12 text-center" [hidden]="!juegoTerminado">
+        <div class="row zoneConfig">
+            <div class="col-sm-12"><h2>¡¡Has terminado la partida!!</h2></div>
+            <div class="col-sm-12"><h4>Felicidades, tu puntuación ha sido: {{score}}</h4></div>
+            <div class="col-sm-12"><button type="button" class="btn btn-warning" (click)="reiniciar()" style="margin-top:2rem;">Reiniciar</button></div>
+        </div>
     </div>
     
     <div class="col-sm-8" [hidden]="!(juegoEmpezado && !juegoTerminado)">

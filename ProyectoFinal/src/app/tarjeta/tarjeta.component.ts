@@ -47,12 +47,4 @@ export class TarjetaComponent implements OnInit, OnChanges {
   next() {
     this.siguienteTarjeta.emit({});
   }
-  // empezar() {
-  //   this.juegoEmpezado = false;
-  //   this.juegoCargando = true;
-  //   this.searchTarjets();
-  // }
-  // reiniciar() {
-  //   this.empezar();
-  // }
 }

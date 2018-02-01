@@ -15,12 +15,12 @@ export class AppComponent implements OnInit {
   juegoCargando = false;
   juegoTerminado = false;
 
-  numberQuestions = 10;
   questions: Array<any> = [];
   numCurrentQuestion = -1;
 
   constructor(private service: RequestService) { }
   ngOnInit() {
+    this.service.getCategories();
     // this.juegoCargando = true;
     // this.searchTarjets();
   }
@@ -34,13 +34,18 @@ export class AppComponent implements OnInit {
   reiniciar() {
     this.score = 0;
     this.juegoEmpezado = false;
+    this.juegoCargando = false;
     this.juegoTerminado = false;
-    this.juegoCargando = true;
-    this.searchTarjets();
+    this.numCurrentQuestion = -1;
   }
   searchTarjets() {
-    console.log(this.numberQuestions);
-    (this.service.getRequest('https://opentdb.com/api.php?encode=url3986&amount=' + this.numberQuestions)).subscribe(
+    let url = 'https://opentdb.com/api.php?encode=url3986';
+    url = url + '&amount=' + this.service.numberOfQuestionsSelection;
+    url = url + '&difficulty=' + this.service.difficultyUserSelection;
+    url = url + '&type=' + this.service.typeQuestionsUserSelection;
+    url = url + '&category=' + this.service.categoryQuestionsUserSelection;
+    console.log(this.service.numberOfQuestionsSelection);
+    (this.service.getRequest(url)).subscribe(
       (result) => {
         this.juegoCargando = false;
         this.juegoEmpezado = true;
@@ -54,7 +59,8 @@ export class AppComponent implements OnInit {
   }
 
   nextTarget() {
-    if (this.numCurrentQuestion < this.numberQuestions) {
+    console.log(this.numCurrentQuestion, this.service.numberOfQuestionsSelection);
+    if (this.numCurrentQuestion < this.service.numberOfQuestionsSelection - 1) {
       this.getNextTarget();
     } else {
       this.juegoTerminado = true;
