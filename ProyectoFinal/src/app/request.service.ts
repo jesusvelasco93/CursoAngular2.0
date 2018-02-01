@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RequestService {
-
+  public difficultyUserSelection = '';
   constructor(private http: Http) { }
 
   getRequest(req: string) {

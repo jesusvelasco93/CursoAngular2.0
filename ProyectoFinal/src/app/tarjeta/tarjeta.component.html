@@ -1,19 +1,33 @@
-<div id="tarjeta">
-  <div id="pregunta">
-    <p>{{question}}</p>
+<div class="card">
+  <div class="card-header">
+    Pregunta número X
   </div>
-  <div id="respuestas">
-    <div class="respuesta" *ngFor="let respuesta of answers; let i = index">
-      <input name="respuesta" ng-control="options" type="radio" [value]="respuesta" [(ngModel)]="optionSelected" [disabled]="solucionado"/>{{respuesta}}
-        <span *ngIf="solucionado && respuesta == correct_answer">OK</span>
-        <span *ngIf="solucionado && respuesta != correct_answer">KO</span>
+  <div class="card-block">
+    <h4 class="card-title">Pregunta:</h4>
+    <p class="card-text">{{question}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" *ngFor="let respuesta of answers; let i = index">
+      <input name="respuesta" ng-control="options" type="radio" [value]="respuesta" [(ngModel)]="optionSelected" [disabled]="solucionado"
+      />{{respuesta}}
+      <span *ngIf="solucionado && respuesta == correct_answer" style="margin-left:1rem;">OK</span>
+      <span *ngIf="solucionado && respuesta != correct_answer" style="margin-left:1rem;">KO</span>
+    </li>
+  </ul>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col-sm-6">
+        Difficulty: {{difficulty}}
+      </div>
+      <div class="col-sm-6">
+        Category: {{category}}
+      </div>
     </div>
-    <br/>
   </div>
-  <div id="bottomZoneTarget">
-    <div id="categoria">Category: {{category}}</div>
-    <div id="dificultad">Difficulty: {{difficulty}}</div>
-  </div>
-  <button *ngIf="!solucionado" type="button" (click)="evaluar()">Evaluar</button>
-  <button *ngIf="solucionado" type="button" (click)="next()">Siguiente</button>
+</div>
+<br/>
+<div class="text-center">
+  <button *ngIf="!solucionado" type="button" class="btn btn-primary" (click)="evaluar()">Evaluar</button>
+  <button *ngIf="solucionado" type="button" class="btn btn-primary" (click)="next()">Siguiente</button>
 </div>
