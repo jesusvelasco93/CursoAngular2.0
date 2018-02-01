@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { RequestService } from './request.service';
 import { TarjetaComponent } from './tarjeta/tarjeta.component';
 
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { TarjetaComponent } from './tarjeta/tarjeta.component';
     HttpModule,
     JsonpModule,
     NgbModule.forRoot(),
+    Angular2FontawesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

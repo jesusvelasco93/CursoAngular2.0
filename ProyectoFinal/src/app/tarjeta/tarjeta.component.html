@@ -1,32 +1,32 @@
 <div class="card">
-  <div class="card-header">
-    Pregunta número X
+  <div class="card-header" style="background: black; color:white">
+    <h2><b>Pregunta número {{numQuestion + 1}}</b></h2>
   </div>
   <div class="card-block">
-    <h4 class="card-title">Pregunta:</h4>
-    <p class="card-text">{{question}}</p>
+    <h4 class="card-title"><b>Pregunta:</b></h4>
+    <h6 class="card-subtitle mb-2">{{question}}</h6>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let respuesta of answers; let i = index">
+    <li class="list-group-item" *ngFor="let respuesta of answers; let i = index" [ngClass]="{'correctAnswer': respuesta == optionSelected && solucionado  && respuesta == correct_answer, 'errorAnswer': respuesta == optionSelected && solucionado  && respuesta != correct_answer}">
       <input name="respuesta" ng-control="options" type="radio" [value]="respuesta" [(ngModel)]="optionSelected" [disabled]="solucionado"
-      />{{respuesta}}
-      <span *ngIf="solucionado && respuesta == correct_answer" style="margin-left:1rem;">OK</span>
-      <span *ngIf="solucionado && respuesta != correct_answer" style="margin-left:1rem;">KO</span>
+      /><span style="padding-left: 1rem;"> {{respuesta}}</span>
+      <span *ngIf="solucionado && respuesta == correct_answer" style="margin-left:1rem; color:green"><fa [name]="'check-circle'"></fa></span>
+      <span *ngIf="solucionado && respuesta != correct_answer" style="margin-left:1rem; color:red;"><fa [name]="'times'"></fa></span>
     </li>
   </ul>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted" style="background:black;">
     <div class="row">
       <div class="col-sm-6">
-        Difficulty: {{difficulty}}
+        <b>Difficulty:</b> <i style="color:white;">{{difficulty}}</i>
       </div>
       <div class="col-sm-6">
-        Category: {{category}}
+        <b>Category:</b> <i style="color:white;">{{category}}</i>
       </div>
     </div>
   </div>
 </div>
 <br/>
 <div class="text-center">
-  <button *ngIf="!solucionado" type="button" class="btn btn-primary" (click)="evaluar()">Evaluar</button>
-  <button *ngIf="solucionado" type="button" class="btn btn-primary" (click)="next()">Siguiente</button>
+  <button *ngIf="!solucionado" type="button" class="btn btn-warning" (click)="evaluar()" [disabled]="optionSelected == null">Evaluar</button>
+  <button *ngIf="solucionado" type="button" class="btn btn-warning" (click)="next()">Siguiente</button>
 </div>

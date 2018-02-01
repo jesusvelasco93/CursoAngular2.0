@@ -7,6 +7,7 @@ import { Component, OnInit, OnChanges, Output, Input, EventEmitter} from '@angul
 })
 export class TarjetaComponent implements OnInit, OnChanges {
   @Input() data = null;
+  @Input() numQuestion = 0;
   @Output() tarjetaResuelta = new EventEmitter<any>();
   @Output() siguienteTarjeta = new EventEmitter<any>();
 
