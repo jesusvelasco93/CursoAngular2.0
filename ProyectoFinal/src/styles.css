@@ -13,7 +13,7 @@ body {
     border: 1px solid black;
 }
 .container * {
-    transition: all .2s ease;
+    transition: all .75s ease;
 }
 p.linkHeader {
     margin-bottom: 0px;

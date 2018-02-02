@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-header" style="background: black; color:white">
-    <h2><b>Pregunta número {{numQuestion + 1}}</b></h2>
+    <h2><b>Question number #{{numQuestion + 1}}</b></h2>
   </div>
   <div class="card-block">
-    <h4 class="card-title"><b>Pregunta:</b></h4>
+    <h4 class="card-title"><b>Question:</b></h4>
     <h6 class="card-subtitle mb-2">{{question}}</h6>
   </div>
   <ul class="list-group list-group-flush">
@@ -27,6 +27,6 @@
 </div>
 <br/>
 <div class="text-center">
-  <button *ngIf="!solucionado" type="button" class="btn btn-warning" (click)="evaluar()" [disabled]="optionSelected == null">Evaluar</button>
-  <button *ngIf="solucionado" type="button" class="btn btn-warning" (click)="next()">Siguiente</button>
+  <button *ngIf="!solucionado" type="button" class="btn btn-warning" (click)="evaluar()" [disabled]="optionSelected == null">Check</button>
+  <button *ngIf="solucionado" type="button" class="btn btn-warning" (click)="next()">Next</button>
 </div>

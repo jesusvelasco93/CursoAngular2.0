@@ -37,6 +37,8 @@ export class TarjetaComponent implements OnInit, OnChanges {
     this.answers = this.data.answers;
     this.correct_answer = this.data.correct_answer;
     this.incorrect_answers = this.data.incorrect_answers;
+
+    this.answers = this.shuffle(this.answers);
   }
 
   evaluar() {
@@ -46,5 +48,13 @@ export class TarjetaComponent implements OnInit, OnChanges {
   }
   next() {
     this.siguienteTarjeta.emit({});
+  }
+
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 }
