@@ -78,7 +78,7 @@
             <!-- difficultyUserSelection -->
         </div>
         <!-- <h2 [hidden]="!juegoCargando" style="font-style:italic;">Cargando...</h2> -->
-        <div class="progress" [style.visibility]="juegoCargando ? 'visible' : 'hidden'" [style.opacity]="juegoCargando ? '1' : '0'">
+        <div [hidden]="!juegoCargando" class="progress">
             <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
@@ -90,7 +90,7 @@
         </div>
     </div>
     
-    <div class="col-sm-8" [style.visibility]="juegoEmpezado && !juegoTerminado ? 'visible' : 'hidden'" [style.opacity]="juegoEmpezado && !juegoTerminado ? '1' : '0'">
+    <div class="col-sm-8" [hidden]="!(juegoEmpezado && !juegoTerminado)">
         <app-tarjeta [numQuestion]="numCurrentQuestion" [data]="tarjet" (tarjetaResuelta)="changeScore($event)" (siguienteTarjeta)="nextTarget($event)"></app-tarjeta>
     </div>
 </div>

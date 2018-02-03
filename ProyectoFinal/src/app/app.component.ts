@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
   }
   
   getNextTarget() {
-    this.tarjet = new TarjetaComponent();
+    // this.tarjet = new TarjetaComponent();
     this.numCurrentQuestion++;
     const currentQuestion = this.questions[this.numCurrentQuestion];
     console.log('LOAD QUESTION', currentQuestion, this.numCurrentQuestion);

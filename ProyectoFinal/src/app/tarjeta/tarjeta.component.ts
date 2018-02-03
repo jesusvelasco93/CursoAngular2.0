@@ -6,21 +6,12 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   templateUrl: './tarjeta.component.html',
   styleUrls: ['./tarjeta.component.css'],
   animations: [
-    trigger('targetChange', [
-      state('hideTarget', style({
-        // opacity: '0',
-        transform: 'scale(0)',
-        opacity: 0,
-      })),
-      state('showTarget', style({
-        // backgroundColor: '#cfd8dc',
-        transform: 'scale(1)',
-        opacity: 1,
-      })),
-      transition('hideTarget => showTarget', animate('.75 ease-in')),
-      transition('showTarget => hideTarget', animate('.75 ease-out'))
-    ])
-  ]
+    trigger('crossfade', [
+      state('show', style({ opacity: 1, transform: 'scale(1)'})),
+      state('hide', style({ opacity: 0, transform: 'scale(0)' })),
+      transition('hide => show', animate('0.75s ease-in')),
+      transition('show => hide', animate('0.175s ease-out'))
+    ])]
 })
 export class TarjetaComponent implements OnInit, OnChanges {
   @Input() data = null;
@@ -39,7 +30,7 @@ export class TarjetaComponent implements OnInit, OnChanges {
   correct_answer: string = '';
   incorrect_answers: Array<string> = [];
 
-  state = 'hideTarget';
+  public state = 'hide';
 
   constructor() { }
 
@@ -59,7 +50,10 @@ export class TarjetaComponent implements OnInit, OnChanges {
 
     this.answers = this.shuffle(this.answers);
 
-    this.state = 'showTarget';
+    let self = this;
+    setTimeout(function () {
+      self.state = 'show';
+    }, 1000);
   }
 
   evaluar() {
@@ -68,7 +62,8 @@ export class TarjetaComponent implements OnInit, OnChanges {
     this.solucionado = true;
   }
   next() {
-    this.state = 'hideTarget';
+    this.state = 'hide';
+    console.log(this.state);
     this.siguienteTarjeta.emit({});
   }
 
