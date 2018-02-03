@@ -1,4 +1,4 @@
-{{state}}{{solucionado}}<div class="card" [@crossfade]="state">
+<div class="card" [@crossfade]="state">
   <div class="card-header" style="background: black; color:white">
     <h2><b>Question number #{{numQuestion + 1}}</b></h2>
   </div>
@@ -26,7 +26,7 @@
   </div>
 </div>
 <br/>
-<div class="text-center">
+<div class="text-center" [@crossfadeButton]="state">
   <button *ngIf="!solucionado" type="button" class="btn btn-warning" (click)="evaluar()" [disabled]="optionSelected == null">Check</button>
   <button *ngIf="solucionado" type="button" class="btn btn-warning" (click)="next()">Next</button>
 </div>

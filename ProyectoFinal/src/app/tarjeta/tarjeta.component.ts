@@ -11,7 +11,14 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
       state('hide', style({ opacity: 0, transform: 'scale(0)' })),
       transition('hide => show', animate('0.75s ease-in')),
       transition('show => hide', animate('0.175s ease-out'))
-    ])]
+    ]),
+    trigger('crossfadeButton', [
+      state('show', style({ opacity: 1 })),
+      state('hide', style({ opacity: 0})),
+      transition('hide => show', animate('0.75s ease-in')),
+      transition('show => hide', animate('0.175s ease-out'))
+    ]),
+  ]
 })
 export class TarjetaComponent implements OnInit, OnChanges {
   @Input() data = null;
