@@ -1,9 +1,26 @@
 import { Component, OnInit, OnChanges, Output, Input, EventEmitter} from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-tarjeta',
   templateUrl: './tarjeta.component.html',
   styleUrls: ['./tarjeta.component.css'],
+  animations: [
+    trigger('targetChange', [
+      state('hideTarget', style({
+        // opacity: '0',
+        transform: 'scale(0)',
+        opacity: 0,
+      })),
+      state('showTarget', style({
+        // backgroundColor: '#cfd8dc',
+        transform: 'scale(1)',
+        opacity: 1,
+      })),
+      transition('hideTarget => showTarget', animate('.75 ease-in')),
+      transition('showTarget => hideTarget', animate('.75 ease-out'))
+    ])
+  ]
 })
 export class TarjetaComponent implements OnInit, OnChanges {
   @Input() data = null;
@@ -22,6 +39,8 @@ export class TarjetaComponent implements OnInit, OnChanges {
   correct_answer: string = '';
   incorrect_answers: Array<string> = [];
 
+  state = 'hideTarget';
+
   constructor() { }
 
   ngOnInit() {}
@@ -39,6 +58,8 @@ export class TarjetaComponent implements OnInit, OnChanges {
     this.incorrect_answers = this.data.incorrect_answers;
 
     this.answers = this.shuffle(this.answers);
+
+    this.state = 'showTarget';
   }
 
   evaluar() {
@@ -47,6 +68,7 @@ export class TarjetaComponent implements OnInit, OnChanges {
     this.solucionado = true;
   }
   next() {
+    this.state = 'hideTarget';
     this.siguienteTarjeta.emit({});
   }
 
