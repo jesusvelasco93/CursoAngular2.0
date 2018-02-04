@@ -43,7 +43,8 @@ export class TarjetaComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
-  ngOnChanges() {
+  ngOnChanges(event) {
+    console.log(event, this.data);
     this.optionSelected = null;
     this.solucionado = false;
 
@@ -57,6 +58,7 @@ export class TarjetaComponent implements OnInit, OnChanges {
 
     this.answers = this.shuffle(this.answers);
 
+    // console.log(this.type);
     let self = this;
     setTimeout(function () {
       self.state = 'show';

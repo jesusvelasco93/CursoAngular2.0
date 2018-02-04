@@ -10,21 +10,23 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   providers: [RequestService],
   animations: [
     trigger('changeMode', [
-      state('show', style({ opacity: 1, transform: 'scale(1) translateY(0)'})),
-      state('hide', style({ opacity: 0, transform: 'scale(0.5) translateY(-130%)'})),
+      state('show', style({ opacity: 1, display: 'inline-block', transform: 'scale(1) translateY(0)'})),
+      state('hide', style({ opacity: 0, display: 'none', transform: 'scale(0.5) translateY(-130%)'})),
       transition('hide => show', animate('0.75s cubic-bezier(.2,-0.35,.53,1.37)')),
-      transition('show => hide', animate('0.25s cubic-bezier(.2,-0.35,.53,1.37)'))
+      transition('show => hide', animate('0.25s cubic-bezier(.2,-0.35,.53,1.37)')),
+      transition('hide => loading', animate('0.25s')),
+      transition('loading => hide', animate('0.25s')),
     ]),
   ]
 })
 export class AppComponent implements OnInit {
   tarjet: TarjetaComponent = new TarjetaComponent();
   score = 0;
-  juegoEmpezado = false;
-  juegoCargando = false;
-  juegoTerminado = false;
+
+  startGame = false;
 
   zonaInicio = 'hide';
+  zonaLoading = 'hide';
   zonaTarjetas = 'hide';
   zonaFinJuego = 'hide';
 
@@ -34,27 +36,33 @@ export class AppComponent implements OnInit {
   constructor(private service: RequestService) { }
   ngOnInit() {
     this.service.getCategories();
-    let self = this;
+    const self = this;
     setTimeout(function () {
+      self.startGame = true;
       self.zonaInicio = 'show';
     }, 1000);
-    // this.juegoCargando = true;
-    // this.searchTarjets();
   }
 
   empezar() {
-    this.juegoEmpezado = false;
-    this.juegoCargando = true;
+    this.zonaInicio = 'hide';
+    const self = this;
+    setTimeout(function () {
+      self.zonaLoading = 'loading';
+    }, 1000);
     this.searchTarjets();
   }
 
   reiniciar() {
     this.score = 0;
-    this.juegoEmpezado = false;
-    this.juegoTerminado = false;
+    this.zonaFinJuego = 'hide';
+    const self = this;
+    setTimeout(function () {
+      self.zonaInicio = 'show';
+    }, 1000);
     this.numCurrentQuestion = -1;
   }
   searchTarjets() {
+    const self = this;
     let url = 'https://opentdb.com/api.php?encode=url3986';
     url = url + '&amount=' + this.service.numberOfQuestionsSelection;
     url = url + '&difficulty=' + this.service.difficultyUserSelection;
@@ -63,8 +71,10 @@ export class AppComponent implements OnInit {
     console.log(this.service.numberOfQuestionsSelection);
     (this.service.getRequest(url)).subscribe(
       (result) => {
-        this.juegoCargando = false;
-        this.juegoEmpezado = true;
+        setTimeout(function () {
+          self.zonaLoading = 'hide';
+          self.zonaTarjetas = 'show';
+        }, 1000);
         this.questions = result.results;
         console.log(this.questions);
         this.getNextTarget();
@@ -79,7 +89,11 @@ export class AppComponent implements OnInit {
     if (this.numCurrentQuestion < this.service.numberOfQuestionsSelection - 1) {
       this.getNextTarget();
     } else {
-      this.juegoTerminado = true;
+      this.zonaTarjetas = 'hide';
+      const self = this;
+      setTimeout(function () {
+        self.zonaFinJuego = 'show';
+      }, 1000);
     }
   }
   
