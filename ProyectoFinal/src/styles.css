@@ -34,3 +34,6 @@ p.linkHeader {
 hr {
     background: white;
 }
+.navbar {
+    z-index: 1;
+}

@@ -1,12 +1,21 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { TarjetaComponent } from './tarjeta/tarjeta.component';
 import { RequestService } from './request.service';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [RequestService],
+  animations: [
+    trigger('changeMode', [
+      state('show', style({ opacity: 1, transform: 'scale(1) translateY(0)'})),
+      state('hide', style({ opacity: 0, transform: 'scale(0.5) translateY(-130%)'})),
+      transition('hide => show', animate('0.75s cubic-bezier(.2,-0.35,.53,1.37)')),
+      transition('show => hide', animate('0.25s cubic-bezier(.2,-0.35,.53,1.37)'))
+    ]),
+  ]
 })
 export class AppComponent implements OnInit {
   tarjet: TarjetaComponent = new TarjetaComponent();
@@ -15,12 +24,20 @@ export class AppComponent implements OnInit {
   juegoCargando = false;
   juegoTerminado = false;
 
+  zonaInicio = 'hide';
+  zonaTarjetas = 'hide';
+  zonaFinJuego = 'hide';
+
   questions: Array<any> = [];
   numCurrentQuestion = -1;
 
   constructor(private service: RequestService) { }
   ngOnInit() {
     this.service.getCategories();
+    let self = this;
+    setTimeout(function () {
+      self.zonaInicio = 'show';
+    }, 1000);
     // this.juegoCargando = true;
     // this.searchTarjets();
   }
@@ -34,7 +51,6 @@ export class AppComponent implements OnInit {
   reiniciar() {
     this.score = 0;
     this.juegoEmpezado = false;
-    this.juegoCargando = false;
     this.juegoTerminado = false;
     this.numCurrentQuestion = -1;
   }
