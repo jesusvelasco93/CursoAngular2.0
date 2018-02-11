@@ -15,6 +15,7 @@ export class RequestService {
     return this.http.get(req).map((response) => response.json());
   }
   getCategories() {
+    console.log('ASDAS');
     (this.getRequest('https://opentdb.com/api_category.php')).subscribe(
       (result) => {
         this.typeCategories = result.trivia_categories;
