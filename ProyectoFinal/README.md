@@ -29,3 +29,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 El proyecto tiene una mezcla de lenguajes entre Ingles y Español por la diferencia del ApiRest
+
+
+
+Para recompilar el proyecto para una cierta URL se utiliza:
+## ng build --bh /sites/dev-apps/Documentos%20compartidos/Angular/
+Hay problema con las imagenes ya que en vez de poner ./ o no ponerlo pone / y se carga el basepath
+# investigar posible solución
