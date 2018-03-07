@@ -2,38 +2,53 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 /* html {  */
-body { 
-  background: url(./assets/fondo.png) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+
+/* EN SHAREPOINT */
+#s4-bodyContainer #AngularAPP {
+    margin-top: 2rem;
+    min-height: 625px;
 }
-.card{
+body.ms-backgroundImage #AngularAPP { 
+    background: url(./assets/fondo.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* SI NO ES SHAREPOINT */
+body:not(.ms-backgroundImage){
+    background: url(./assets/fondo.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#AngularAPP .card{
     border: 1px solid black;
 }
-.container * {
+#AngularAPP .container * {
     transition: all .75s ease;
 }
-p.linkHeader {
+#AngularAPP p.linkHeader {
     margin-bottom: 0px;
     cursor: default;
 }
-.errorAnswer{
+#AngularAPP .errorAnswer{
     background-color: red;
 }
-.correctAnswer{
+#AngularAPP .correctAnswer{
     background-color: green;
 }
-.zoneConfig {
+#AngularAPP .zoneConfig {
     color:white;
     background: #292b2c;
     padding: 2rem;
     border-radius: 1rem;
 }
-hr {
+#AngularAPP hr {
     background: white;
 }
-.navbar {
+#AngularAPP .navbar {
     z-index: 1;
 }
